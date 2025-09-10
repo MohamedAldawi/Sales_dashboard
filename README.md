@@ -285,9 +285,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact & Support
 
-**Project Maintainer**: [Your Name]
-- 📧 Email: your.email@domain.com
-- 💼 LinkedIn: [Your LinkedIn Profile]
+**Project Maintainer**: flowsohere || Mohamed Eldawy
+- 📧 Email: flowsphereba@gmail.com
+- 💼 LinkedIn: https://www.linkedin.com/in/moeldawy/
 - 🐛 Issues: [Create an Issue](https://github.com/yourusername/Vet-Trading-Sales-Analysis/issues)
 
 ## 🙏 Acknowledgments
