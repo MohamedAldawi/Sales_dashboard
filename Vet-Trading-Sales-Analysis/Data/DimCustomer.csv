@@ -1,0 +1,16 @@
+CustomerKey,CustomerID,CustomerName,CustomerType,CustomerSegment,RegistrationDate,PhoneNumber,Email,Address,City,State,Country,CreditLimit,IsActive
+1,CUST001,PetCare Veterinary Hospital,Hospital,Large Practice,2020-01-15,555-0101,info@petcarevet.com,123 Main Street,Springfield,IL,USA,25000.00,1
+2,CUST002,Animal Health Clinic,Clinic,Medium Practice,2019-03-20,555-0102,contact@animalhealthclinic.com,456 Oak Avenue,Chicago,IL,USA,15000.00,1
+3,CUST003,Emergency Pet Services,Hospital,Large Practice,2018-07-10,555-0103,admin@emergencypet.com,789 Pine Road,Naperville,IL,USA,35000.00,1
+4,CUST004,Happy Paws Veterinary,Clinic,Small Practice,2021-05-12,555-0104,info@happypaws.com,321 Elm Street,Rockford,IL,USA,8000.00,1
+5,CUST005,Dr. Sarah Johnson,Individual,Individual Vet,2022-02-08,555-0105,sarah.johnson@vetmail.com,654 Maple Drive,Peoria,IL,USA,5000.00,1
+6,CUST006,Countryside Animal Hospital,Hospital,Medium Practice,2017-11-25,555-0106,info@countrysideanimal.com,987 Country Lane,Champaign,IL,USA,20000.00,1
+7,CUST007,Urban Pet Clinic,Clinic,Medium Practice,2020-09-14,555-0107,contact@urbanpet.com,147 City Street,Chicago,IL,USA,12000.00,1
+8,CUST008,Westside Veterinary Group,Hospital,Large Practice,2016-04-30,555-0108,admin@westsidevet.com,258 West Boulevard,Aurora,IL,USA,30000.00,1
+9,CUST009,Mobile Vet Services,Individual,Mobile Service,2023-01-20,555-0109,mobile@vetservices.com,369 Mobile Avenue,Joliet,IL,USA,6000.00,1
+10,CUST010,Specialty Pet Hospital,Hospital,Specialty Practice,2015-12-05,555-0110,specialty@pethospital.com,741 Specialty Drive,Evanston,IL,USA,40000.00,1
+11,CUST011,Family Pet Clinic,Clinic,Small Practice,2021-08-18,555-0111,family@petclinic.com,852 Family Street,Decatur,IL,USA,7500.00,1
+12,CUST012,Dr. Michael Brown,Individual,Individual Vet,2022-06-22,555-0112,michael.brown@vetmail.com,963 Professional Lane,Springfield,IL,USA,4500.00,1
+13,CUST013,24/7 Animal Emergency,Hospital,Emergency Service,2018-10-03,555-0113,emergency@247animal.com,159 Emergency Road,Chicago,IL,USA,50000.00,1
+14,CUST014,Holistic Pet Wellness,Clinic,Specialty Practice,2020-12-12,555-0114,holistic@petwellness.com,357 Wellness Way,Oak Park,IL,USA,10000.00,1
+15,CUST015,Regional Veterinary Chain,Hospital,Chain Practice,2017-02-28,555-0115,regional@vetchain.com,486 Regional Plaza,Schaumburg,IL,USA,75000.00,1

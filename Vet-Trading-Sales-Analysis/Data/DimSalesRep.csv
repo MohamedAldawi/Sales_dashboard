@@ -1,0 +1,16 @@
+SalesRepKey,EmployeeID,SalesRepName,HireDate,Department,Manager,TerritoryAssigned,CommissionRate,IsActive
+1,EMP001,Alex Thompson,2020-03-15,Sales,Sarah Manager,North Region,0.0350,1
+2,EMP002,Maria Rodriguez,2019-07-22,Sales,Sarah Manager,South Region,0.0375,1
+3,EMP003,James Wilson,2021-01-10,Sales,Mike Director,East Region,0.0325,1
+4,EMP004,Emily Johnson,2018-11-05,Sales,Sarah Manager,West Region,0.0400,1
+5,EMP005,David Brown,2020-09-18,Sales,Mike Director,Central Region,0.0350,1
+6,EMP006,Lisa Davis,2022-02-14,Sales,Sarah Manager,North Region,0.0300,1
+7,EMP007,Robert Miller,2019-04-30,Sales,Mike Director,South Region,0.0375,1
+8,EMP008,Jennifer Garcia,2021-08-12,Sales,Sarah Manager,East Region,0.0325,1
+9,EMP009,Michael Anderson,2017-12-03,Sales,Mike Director,West Region,0.0425,1
+10,EMP010,Sarah Taylor,2020-06-25,Sales,Sarah Manager,Central Region,0.0350,1
+11,EMP011,Christopher Lee,2021-11-08,Sales,Mike Director,North Region,0.0300,1
+12,EMP012,Amanda White,2019-01-20,Sales,Sarah Manager,South Region,0.0375,1
+13,EMP013,Kevin Martinez,2022-05-03,Sales,Mike Director,East Region,0.0325,1
+14,EMP014,Nicole Thomas,2018-08-17,Sales,Sarah Manager,West Region,0.0400,1
+15,EMP015,Daniel Jackson,2020-12-11,Sales,Mike Director,Central Region,0.0350,1
