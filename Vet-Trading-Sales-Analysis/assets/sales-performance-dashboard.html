@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Performance Dashboard - Veterinary Trading Company</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+        
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1f4e79 0%, #5b9bd5 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .filter-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .filter-select {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .performance-matrix {
+            padding: 20px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f4e79;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .title-icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .matrix-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .matrix-table th {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #1f4e79;
+            border-bottom: 2px solid #e9ecef;
+            font-size: 14px;
+        }
+        
+        .matrix-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 14px;
+        }
+        
+        .rep-name {
+            font-weight: 600;
+            color: #1f4e79;
+        }
+        
+        .sales-value {
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .sales-high { background: #e8f5e8; color: #2d5a2d; }
+        .sales-medium { background: #fff4e6; color: #8b4513; }
+        .sales-low { background: #ffe6e6; color: #8b0000; }
+        
+        .total-cell {
+            background: #1f4e79;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .analytics-section {
+            padding: 0 20px 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .analytics-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        
+        .ranking-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .ranking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .ranking-item:last-child {
+            border-bottom: none;
+        }
+        
+        .rank-position {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .rank-1 { background: #ffd700; color: #8b6914; }
+        .rank-2 { background: #c0c0c0; color: #5a5a5a; }
+        .rank-3 { background: #cd7f32; color: #654321; }
+        .rank-other { background: #e9ecef; color: #6c757d; }
+        
+        .rep-info {
+            flex: 1;
+            margin-left: 15px;
+        }
+        
+        .rep-name-rank {
+            font-weight: 600;
+            color: #1f4e79;
+            font-size: 14px;
+        }
+        
+        .rep-territory {
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .rep-sales {
+            font-weight: 600;
+            color: #28a745;
+        }
+        
+        .customer-scatter {
+            height: 200px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scatter-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .point-high { background: #28a745; }
+        .point-medium { background: #ffc107; }
+        .point-low { background: #dc3545; }
+        
+        .product-treemap {
+            height: 200px;
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border-radius: 8px;
+            display: grid;
+            grid-template-areas: 
+                "antibiotics antibiotics pain-mgmt"
+                "antibiotics antibiotics supplements"
+                "diet diet supplements";
+            gap: 4px;
+            padding: 10px;
+        }
+        
+        .treemap-section {
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .antibiotics { 
+            grid-area: antibiotics; 
+            background: #5b9bd5; 
+        }
+        .pain-mgmt { 
+            grid-area: pain-mgmt; 
+            background: #70ad47; 
+        }
+        .diet { 
+            grid-area: diet; 
+            background: #ff8c00; 
+        }
+        .supplements { 
+            grid-area: supplements; 
+            background: #c5504b; 
+        }
+        
+        .achievement-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .achievement-high { background: #d4edda; color: #155724; }
+        .achievement-medium { background: #fff3cd; color: #856404; }
+        .achievement-low { background: #f8d7da; color: #721c24; }
+        
+        @media (max-width: 1024px) {
+            .analytics-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .matrix-table {
+                font-size: 12px;
+            }
+            
+            .matrix-table th,
+            .matrix-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>📊 Sales Performance Dashboard</h1>
+            <div class="filters">
+                <div class="filter-group">
+                    <label class="filter-label">Date Range</label>
+                    <select class="filter-select">
+                        <option>Q3 2024</option>
+                        <option>Q2 2024</option>
+                        <option>YTD 2024</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Territory</label>
+                    <select class="filter-select">
+                        <option>All Territories</option>
+                        <option>North Region</option>
+                        <option>South Region</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Category</label>
+                    <select class="filter-select">
+                        <option>All Categories</option>
+                        <option>Antibiotics</option>
+                        <option>Pain Management</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="performance-matrix">
+            <div class="section-title">
+                <span class="title-icon">📈</span>
+                Sales Representative Performance Matrix
+            </div>
+            <div class="matrix-container">
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Sales Representative</th>
+                            <th>Territory</th>
+                            <th>Jan 2024</th>
+                            <th>Feb 2024</th>
+                            <th>Mar 2024</th>
+                            <th>Q1 Total</th>
+                            <th>Target Achievement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rep-name">Alex Thompson</td>
+                            <td>North Region</td>
+                            <td class="sales-value sales-high">$48.2K</td>
+                            <td class="sales-value sales-high">$52.1K</td>
+                            <td class="sales-value sales-high">$45.8K</td>
+                            <td class="sales-value total-cell">$146.1K</td>
+                            <td>108%<span class="achievement-badge achievement-high">Exceeded</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rep-name">Maria Rodriguez</td>
+                            <td>South Region</td>
+                            <td class="sales-value sales-medium">$42.5K</td>
+                            <td class="sales-value sales-high">$46.8K</td>
+                            <td class="sales-value sales-medium">$41.2K</td>
+                            <td class="sales-value total-cell">$130.5K</td>
+                            <td>95%<span class="achievement-badge achievement-medium">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rep-name">James Wilson</td>
+                            <td>East Region</td>
+                            <td class="sales-value sales-medium">$38.9K</td>
+                            <td class="sales-value sales-medium">$41.3K</td>
+                            <td class="sales-value sales-high">$47.2K</td>
+                            <td class="sales-value total-cell">$127.4K</td>
+                            <td>102%<span class="achievement-badge achievement-high">Exceeded</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rep-name">Emily Johnson</td>
+                            <td>West Region</td>
+                            <td class="sales-value sales-high">$45.1K</td>
+                            <td class="sales-value sales-medium">$39.7K</td>
+                            <td class="sales-value sales-medium">$42.8K</td>
+                            <td class="sales-value total-cell">$127.6K</td>
+                            <td>98%<span class="achievement-badge achievement-medium">On Track</span></td>
+                        </tr>
+                        <tr>
+                            <td class="rep-name">David Brown</td>
+                            <td>Central Region</td>
+                            <td class="sales-value sales-low">$32.4K</td>
+                            <td class="sales-value sales-low">$35.8K</td>
+                            <td class="sales-value sales-medium">$38.9K</td>
+                            <td class="sales-value total-cell">$107.1K</td>
+                            <td>78%<span class="achievement-badge achievement-low">Below Target</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="analytics-section">
+            <div class="analytics-card">
+                <div class="section-title">
+                    <span class="title-icon">🏆</span>
+                    Sales Rep Rankings
+                </div>
+                <ul class="ranking-list">
+                    <li class="ranking-item">
+                        <div class="rank-position rank-1">1</div>
+                        <div class="rep-info">
+                            <div class="rep-name-rank">Alex Thompson</div>
+                            <div class="rep-territory">North Region</div>
+                        </div>
+                        <div class="rep-sales">$146.1K</div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank-position rank-2">2</div>
+                        <div class="rep-info">
+                            <div class="rep-name-rank">Maria Rodriguez</div>
+                            <div class="rep-territory">South Region</div>
+                        </div>
+                        <div class="rep-sales">$130.5K</div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank-position rank-3">3</div>
+                        <div class="rep-info">
+                            <div class="rep-name-rank">Emily Johnson</div>
+                            <div class="rep-territory">West Region</div>
+                        </div>
+                        <div class="rep-sales">$127.6K</div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank-position rank-other">4</div>
+                        <div class="rep-info">
+                            <div class="rep-name-rank">James Wilson</div>
+                            <div class="rep-territory">East Region</div>
+                        </div>
+                        <div class="rep-sales">$127.4K</div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank-position rank-other">5</div>
+                        <div class="rep-info">
+                            <div class="rep-name-rank">David Brown</div>
+                            <div class="rep-territory">Central Region</div>
+                        </div>
+                        <div class="rep-sales">$107.1K</div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="analytics-card">
+                <div class="section-title">
+                    <span class="title-icon">👥</span>
+                    Customer Analysis
+                </div>
+                <div class="customer-scatter">
+                    <div class="scatter-point point-high" style="top: 20%; left: 80%;"></div>
+                    <div class="scatter-point point-high" style="top: 30%; left: 75%;"></div>
+                    <div class="scatter-point point-medium" style="top: 50%; left: 60%;"></div>
+                    <div class="scatter-point point-medium" style="top: 45%; left: 55%;"></div>
+                    <div class="scatter-point point-medium" style="top: 65%; left: 45%;"></div>
+                    <div class="scatter-point point-low" style="top: 80%; left: 30%;"></div>
+                    <div class="scatter-point point-low" style="top: 75%; left: 25%;"></div>
+                    <div style="position: absolute; bottom: 10px; left: 10px; font-size: 10px; color: #666;">Purchase Frequency →</div>
+                    <div style="position: absolute; top: 10px; left: 10px; font-size: 10px; color: #666; transform: rotate(-90deg); transform-origin: left;">Customer Value ↑</div>
+                </div>
+                <div style="margin-top: 10px; font-size: 12px; color: #666;">
+                    <span style="color: #28a745;">●</span> High Value &nbsp;
+                    <span style="color: #ffc107;">●</span> Medium Value &nbsp;
+                    <span style="color: #dc3545;">●</span> Low Value
+                </div>
+            </div>
+            
+            <div class="analytics-card">
+                <div class="section-title">
+                    <span class="title-icon">📦</span>
+                    Product Mix Analysis
+                </div>
+                <div class="product-treemap">
+                    <div class="treemap-section antibiotics">
+                        Antibiotics<br>$324K (40%)
+                    </div>
+                    <div class="treemap-section pain-mgmt">
+                        Pain Mgmt<br>$195K (24%)
+                    </div>
+                    <div class="treemap-section diet">
+                        Therapeutic Diet<br>$162K (20%)
+                    </div>
+                    <div class="treemap-section supplements">
+                        Supplements<br>$129K (16%)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
